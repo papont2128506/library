@@ -1,11 +1,13 @@
 package ru.papont.library.service;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.papont.library.entity.Book;
 import ru.papont.library.repository.BookRepository;
 
-import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -24,9 +26,11 @@ public class BookService {
         return optionalBook.orElseThrow(() -> new RuntimeException("Book not found"));
     }
 
-    public List<Book> getAll() {
-        //get all books from DB
-        return bookRepository.findAll();
+    public Page<Book> getAll(String query, Pageable pageable) {
+        if (query != null) {
+            return bookRepository.findByQuery("%" + query.toLowerCase() + "%", pageable);
+        }
+        return bookRepository.findAll(pageable);
     }
 
     public Book create(Book book) {

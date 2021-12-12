@@ -1,5 +1,8 @@
 package ru.papont.library.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import ru.papont.library.entity.Book;
 import ru.papont.library.service.BookService;
@@ -16,8 +19,12 @@ public class BookController {
     }
 
     @GetMapping("/book")
-    public List<Book> getAllBooks() {
-        return bookService.getAll();
+    public Page<Book> getAllBooks(@RequestParam Integer page,
+                                  @RequestParam Integer size,
+                                  @RequestParam(required = false) String query) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return bookService.getAll(query, pageable);
     }
 
     @GetMapping("/book/{id}")
