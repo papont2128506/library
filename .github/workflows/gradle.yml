@@ -1,0 +1,23 @@
+name: Flow for all branches
+
+on:
+  push:
+    branches-ignore:
+      - 'master'
+
+jobs:
+  test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+      - name: Gradle package
+        run: gradle clean assemble
+      - name: Gradle verify
+        run: gradle clean check
+
