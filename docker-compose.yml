@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  library:
+    image: postgres:13-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: cuba
+      POSTGRES_PASSWORD: cuba
+      POSTGRES_DB: library
+      POSTGRES_ADMIN_PASSWORD: cuba
