@@ -4,7 +4,7 @@ package ru.papont.library.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.papont.library.NotFoundException;
+import ru.papont.library.exceptions.NotFoundException;
 import ru.papont.library.dto.BookDto;
 import ru.papont.library.entity.Book;
 import ru.papont.library.repository.BookRepository;

@@ -1,4 +1,4 @@
-package ru.papont.library;
+package ru.papont.library.exceptions;
 
 public class NotFoundException extends RuntimeException {
 
