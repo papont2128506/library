@@ -19,5 +19,5 @@ jobs:
       - name: Gradle package
         run: gradle clean assemble
       - name: Gradle verify
-        run: gradle clean check
+        run: gradle check
 
