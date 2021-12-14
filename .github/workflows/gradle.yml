@@ -17,7 +17,5 @@ jobs:
         with:
           java-version: '17'
       - name: Gradle package
-        run: gradle clean assemble
-      - name: Gradle verify
-        run: gradle test
+        run: gradle clean build
 
