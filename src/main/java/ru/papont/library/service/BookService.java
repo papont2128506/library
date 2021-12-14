@@ -4,11 +4,12 @@ package ru.papont.library.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.papont.library.NotFoundException;
 import ru.papont.library.dto.BookDto;
 import ru.papont.library.entity.Book;
 import ru.papont.library.repository.BookRepository;
 
-import java.util.Locale;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Service
@@ -24,7 +25,7 @@ public class BookService {
         //get book by id from DB
         Optional<Book> optionalBook = bookRepository.findById(id);
 
-        return optionalBook.orElseThrow(() -> new RuntimeException("Book not found"));
+        return optionalBook.orElseThrow(() -> new NotFoundException("Book not found"));
     }
 
     public Page<Book> getAll(String query, Pageable pageable) {
@@ -39,15 +40,15 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Book update(Long id, Book book) {
+    public Book update(Long id, @Valid BookDto bookDto) {
         //get book by id and update it
         Book original = get(id);
-        original.setName(book.getName());
-        original.setAuthor(book.getAuthor());
-        original.setDescription(book.getDescription());
-        original.setIsbn(book.getIsbn());
-        original.setPublisher(book.getPublisher());
-        original.setYear(book.getYear());
+        original.setName(bookDto.getName());
+        original.setAuthor(bookDto.getAuthor());
+        original.setDescription(bookDto.getDescription());
+        original.setIsbn(bookDto.getIsbn());
+        original.setPublisher(bookDto.getPublisher());
+        original.setYear(bookDto.getYear());
 
         Book saved = bookRepository.save(original);
         return saved;
