@@ -17,5 +17,5 @@ jobs:
         with:
           java-version: '17'
       - name: Gradle package
-        run: gradle clean build
+        run: gradle clean assemble
 

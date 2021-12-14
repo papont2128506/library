@@ -6,10 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import ru.papont.library.NotFoundException;
+import ru.papont.library.exceptions.ConflictException;
+import ru.papont.library.exceptions.NotFoundException;
 
 import java.util.Date;
 import java.util.List;
@@ -47,4 +47,16 @@ public class ControllerAdviser extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<Object> handleConflictException(ConflictException ex) {
+        Map<String, Object> body = Map.of(
+                "timestamp", new Date(),
+                "status", HttpStatus.CONFLICT,
+                "errors", List.of(ex.getMessage())
+        );
+
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+
 }
