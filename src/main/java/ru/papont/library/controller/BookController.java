@@ -5,9 +5,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.papont.library.dto.BookDto;
 import ru.papont.library.entity.Book;
 import ru.papont.library.service.BookService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,13 +37,13 @@ public class BookController {
 
     @PostMapping("/book")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Book createBook(@RequestBody Book book) {
-        return bookService.create(book);
+    public Book createBook(@Valid @RequestBody BookDto bookDto) {
+        return bookService.create(bookDto);
     }
 
     @PutMapping("/book/{id}")
-    public Book editBook(@PathVariable Long id, @RequestBody Book book) {
-        return bookService.update(id, book);
+    public Book editBook(@PathVariable Long id,@Valid @RequestBody BookDto bookDto) {
+        return bookService.update(id, bookDto);
     }
 
     @DeleteMapping("/book/{id}")

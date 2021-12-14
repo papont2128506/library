@@ -1,16 +1,20 @@
 package ru.papont.library.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import ru.papont.library.dto.BookDto;
 
 import javax.persistence.*;
 
 @Data
 @Entity()
 @Table(name = "books")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     private String name;
@@ -20,12 +24,12 @@ public class Book {
     private String isbn;
     private Integer year;
 
-    public Long getId() {
-        return id;
+    public Book(BookDto bookDto) {
+        name = bookDto.getName();
+        author = bookDto.getAuthor();
+        description = bookDto.getDescription();
+        publisher = bookDto.getPublisher();
+        isbn = bookDto.getIsbn();
+        year = bookDto.getYear();
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 }
