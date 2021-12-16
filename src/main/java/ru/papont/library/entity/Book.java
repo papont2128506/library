@@ -3,9 +3,12 @@ package ru.papont.library.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ru.papont.library.dto.BookDto;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity()
@@ -23,6 +26,12 @@ public class Book {
     private String publisher;
     private String isbn;
     private Integer year;
+
+    private boolean available = true;
+
+    @OneToMany(mappedBy = "book")
+    @ToString.Exclude
+    private List<BookHistory> bookHistories = new ArrayList<>();
 
     public Book(BookDto bookDto) {
         name = bookDto.getName();
