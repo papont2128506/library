@@ -43,7 +43,10 @@ public class ClientService {
             return clientRepository.findByQuery("%" + query.toLowerCase() + "%", pageable);
         }
 
-        return clientRepository.findAll(pageable);
+        Page<Client> clients = clientRepository.findAll(pageable);
+
+
+        return clients;
     }
 
     public Client get(Long id) {

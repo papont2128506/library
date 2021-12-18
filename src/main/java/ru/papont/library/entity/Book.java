@@ -26,7 +26,6 @@ public class Book {
     private String publisher;
     private String isbn;
     private Integer year;
-
     private boolean available = true;
 
     @OneToMany(mappedBy = "book")
